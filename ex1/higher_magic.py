@@ -40,9 +40,7 @@ def spell_sequence(spells: list[Callable]) -> Callable:
     return cast_spells
 
 
-
 if __name__ == "__main__":
-    targets = ['Dragon', 'Goblin', 'Wizard', 'Knight']
 
     combo = spell_combiner(fireball, lightning_strike)
     print(combo("Goblin", 16))

@@ -39,9 +39,6 @@ def memory_vault() -> dict[str, Callable]:
 
 if __name__ == "__main__":
 
-    enchantment_types = ['Flaming', 'Flowing', 'Dark']
-    items_to_enchant = ['Armor', 'Sword', 'Cloak', 'Shield']
-
     print("Testing mage counter...")
     counter1 = mage_counter()
     counter2 = mage_counter()

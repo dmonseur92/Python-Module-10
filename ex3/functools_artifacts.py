@@ -21,8 +21,8 @@ def base_enchantment(power: int, element: str, target: str) -> str:
     return f"Launch a {element} spell and do {power} damage to {target}!"
 
 def partial_enchanter(
-    base_enchantment: Callable[[int, str, str], str],
-) -> dict[str, Callable[[str], str]]:
+    base_enchantment: Callable,
+) -> dict[str, Callable]:
     return {
         "fire_enchant": ft.partial(base_enchantment, 50, "fire"),
         "ice_enchant": ft.partial(base_enchantment, 50, "ice"),
@@ -56,35 +56,23 @@ def spell_dispatcher() -> Callable:
 
 if __name__ == "__main__":
     print("Testing spell reducer...")
-    try:
-        print(spell_reducer([14, 27, 38, 28, 36, 10], "add"))
-        print(spell_reducer([14, 27, 38, 28, 36, 10], "multiply"))
-        print(spell_reducer([14, 27, 38, 28, 36, 10], "max"))
-        print(spell_reducer([14, 27, 38, 28, 36, 10], "min"))
-    except (ValueError, TypeError) as e:
-        print(f"Error: {e}")
+    print(spell_reducer([14, 27, 38, 28, 36, 10], "add"))
+    print(spell_reducer([14, 27, 38, 28, 36, 10], "multiply"))
+    print(spell_reducer([14, 27, 38, 28, 36, 10], "max"))
+    print(spell_reducer([14, 27, 38, 28, 36, 10], "min"))
 
     print("\nTesting partial enchanter...")
-    try:
-        enchantments = partial_enchanter(base_enchantment)
-        print(enchantments["fire_enchant"]("Dragon"))
-        print(enchantments["ice_enchant"]("Goblin"))
-        print(enchantments["lightning_enchant"]("Wizard"))
-    except (TypeError, KeyError) as e:
-        print(f"Error: {e}")
+    enchantments = partial_enchanter(base_enchantment)
+    print(enchantments["fire_enchant"]("Dragon"))
+    print(enchantments["ice_enchant"]("Goblin"))
+    print(enchantments["lightning_enchant"]("Wizard"))
 
     print("\nTesting memoized fibonacci...")
-    try:
-        print(f"Fib(14): {memoized_fibonacci(14)}")
-    except (TypeError, ValueError) as e:
-        print(f"Error: {e}")
+    print(f"Fib(14): {memoized_fibonacci(14)}")
 
     print("\nTesting spell dispatcher...")
-    try:
-        spell = spell_dispatcher()
-        print(spell(50))
-        print(spell("fire"))
-        print(spell([10, 20, 30]))
-        print(spell(3.14))
-    except (TypeError, ValueError) as e:
-        print(f"Error: {e}")
+    spell = spell_dispatcher()
+    print(spell(50))
+    print(spell("fire"))
+    print(spell([10, 20, 30]))
+    print(spell(3.14))
