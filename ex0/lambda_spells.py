@@ -1,4 +1,3 @@
-
 def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     return sorted(artifacts, key=lambda artifact: artifact["power"],
                   reverse=True)
