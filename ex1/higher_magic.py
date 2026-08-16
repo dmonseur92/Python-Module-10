@@ -4,38 +4,45 @@ from collections.abc import Callable
 def fireball(target: str, power: int) -> str:
     return f"Fireball burns {target} for {power} HP"
 
+
 def lightning_strike(target: str, power: int) -> str:
     return f"Lightning strike shocks {target} for {power * 2} HP"
+
 
 def heal(target: str, power: int) -> str:
     return f"Heal {target} for {power} HP"
 
+
 def is_healer_not_afk(target: str, power: int) -> bool:
-    if target == 'Wizard' or target == 'Knight' and power > 9:
+    if (target == 'Wizard' or target == 'Knight') and power > 9:
         return True
     else:
         return False
+
 
 def spell_combiner(spell1: Callable, spell2: Callable) -> Callable:
     def combined(target: str, power: int) -> tuple[str, str]:
         return spell1(target, power), spell2(target, power)
     return combined
 
+
 def power_amplifier(base_spell: Callable, multiplier: int) -> Callable:
     def amplified(target: str, power: int) -> str:
         return base_spell(target, power * multiplier)
     return amplified
 
+
 def conditional_caster(condition: Callable, spell: Callable) -> Callable:
     def verify(target: str, power: int) -> str:
-        if condition (target, power):
+        if condition(target, power):
             return spell(target, power)
         else:
             return "Spell fizzled"
     return verify
 
+
 def spell_sequence(spells: list[Callable]) -> Callable:
-    def cast_spells(target, power):
+    def cast_spells(target: str, power: int) -> list:
         return list(map(lambda spell: spell(target, power), spells))
     return cast_spells
 

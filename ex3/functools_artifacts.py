@@ -3,6 +3,7 @@ import operator as op
 from collections.abc import Callable
 from typing import Any
 
+
 def spell_reducer(spells: list[int], operation: str) -> int:
     if not spells:
         return 0
@@ -17,8 +18,10 @@ def spell_reducer(spells: list[int], operation: str) -> int:
     else:
         raise ValueError(f"Unknown operation: {operation}")
 
+
 def base_enchantment(power: int, element: str, target: str) -> str:
     return f"Launch a {element} spell and do {power} damage to {target}!"
+
 
 def partial_enchanter(
     base_enchantment: Callable,
@@ -29,11 +32,13 @@ def partial_enchanter(
         "lightning_enchant": ft.partial(base_enchantment, 50, "lightning"),
     }
 
+
 @ft.lru_cache
 def memoized_fibonacci(n: int) -> int:
     if n <= 1:
         return n
     return memoized_fibonacci(n - 1) + memoized_fibonacci(n - 2)
+
 
 def spell_dispatcher() -> Callable:
     @ft.singledispatch
@@ -50,9 +55,10 @@ def spell_dispatcher() -> Callable:
 
     @spell.register(list)
     def _(value: list) -> str:
-        return f"Multi-cast: {len(value)}"
+        return f"Multi-cast: {len(value)} spells"
 
     return spell
+
 
 if __name__ == "__main__":
     print("Testing spell reducer...")

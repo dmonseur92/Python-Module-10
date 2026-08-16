@@ -1,26 +1,31 @@
 from collections.abc import Callable
 
+
 def mage_counter() -> Callable:
     counter = 0
+
     def increment() -> int:
         nonlocal counter
         counter += 1
         return counter
     return increment
 
+
 def spell_accumulator(initial_power: int) -> Callable:
     total_power = initial_power
+
     def power_up(new_power: int) -> int:
         nonlocal total_power
         total_power += new_power
         return total_power
     return power_up
 
+
 def enchantment_factory(enchantment_type: str) -> Callable:
-    def enchanting(item_name: str):
-        nonlocal enchantment_type
+    def enchanting(item_name: str) -> str:
         return f"{enchantment_type} {item_name}"
     return enchanting
+
 
 def memory_vault() -> dict[str, Callable]:
     memory = {}

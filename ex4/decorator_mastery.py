@@ -1,7 +1,7 @@
 import time
+import random
 from functools import wraps
 from collections.abc import Callable
-import random
 
 
 def spell_timer(func: Callable) -> Callable:
@@ -29,7 +29,7 @@ def power_validator(min_power: int) -> Callable:
             if power is None and len(args) > 0:
                 power = args[-1]
 
-            if power >= min_power:
+            if power is not None and power >= min_power:
                 return func(*args, **kwargs)
 
             return "Insufficient power for this spell"
@@ -87,16 +87,14 @@ if __name__ == "__main__":
 
     print("\nTesting retrying spell...")
 
-    attempts = 0
-
     @retry_spell(3)
     def random_spell() -> str:
-        if random.random() < 0.5:
+        if random.random() < 0.7:
             raise ValueError("Spell failed")
 
         return "Waaaaaaagh spelled!"
-    print(random_spell())
 
+    print(random_spell())
     print("\nTesting MageGuild...")
 
     print(MageGuild.validate_mage_name("Gandalf"))
