@@ -22,6 +22,20 @@ def enchantment_factory(enchantment_type: str) -> Callable:
         return f"{enchantment_type} {item_name}"
     return enchanting
 
+def memory_vault() -> dict[str, Callable]:
+    memory = {}
+
+    def store(key, value):
+        memory[key] = value
+
+    def recall(key):
+        return memory.get(key, "Memory not found")
+
+    return {
+        "store": store,
+        "recall": recall
+    }
+
 
 if __name__ == "__main__":
 
@@ -35,12 +49,22 @@ if __name__ == "__main__":
     print(f"counter1: {counter1()}")
     print(f"counter1: {counter1()}")
     print(f"counter2: {counter2()}")
+    print()
 
     print("Testing spell accumulator...")
     kamehameha = spell_accumulator(10)
     print(f"GoTrunks is powering up: kamehameha value = {kamehameha(100)}")
     print(f"GoTrunks is powering up: kamehameha value = {kamehameha(1000)}")
     print(f"GoTrunks is powering up: kamehameha value = {kamehameha(10000)}")
+    print()
 
+    print("Testing enchantment factory...")
     dream = enchantment_factory("Flaming")
     print(dream("Sword"))
+    print()
+
+    print("Testing memory vault...")
+    vault = memory_vault()
+    print(vault["store"]("secret", "42"))
+    print(vault["recall"]("secret"))
+    print(vault["recall"]("age"))
